@@ -1,8 +1,0 @@
-10:58:39,385 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer for API "JPA"
-10:58:39,787 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.1.0.release) : Enhancement of classes
-10:58:40,465 (main) INFO  [DataNucleus.Enhancer] - Writing class file "D:\google\service\target\classes\com\coollalearn\service\model\Event.class" with enhanced definition
-10:58:40,471 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 1 classes. Timings : input=485 ms, enhance=191 ms, total=676 ms. Consult the log for full details
-10:59:58,245 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer for API "JPA"
-10:59:58,579 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.1.0.release) : Enhancement of classes
-10:59:59,082 (main) INFO  [DataNucleus.Enhancer] - Class "com.coollalearn.service.model.Event" is already enhanced.
-10:59:59,082 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 1 classes. Timings : input=401 ms, enhance=99 ms, total=500 ms. Consult the log for full details
