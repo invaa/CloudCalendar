@@ -1,9 +1,9 @@
-App Engine Java Application
-Copyright (C) 2010-2012 Google Inc.
+Cloud Calendar Service with Spring Data JPA v2
 
-## Skeleton application for use with App Engine Java.
+Features:
 
-Requires [Apache Maven](http://maven.apache.org) 3.0 or greater, and JDK 6+ in order to run.
+- store simple events
+
 
 To build, run
 
