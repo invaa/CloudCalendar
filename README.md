@@ -1,4 +1,4 @@
-Cloud Calendar Service with Spring Data JPA v2
+Cloud Calendar Service with Spring Data JPA v1
 
 Features:
 
