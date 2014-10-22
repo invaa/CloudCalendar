@@ -9,8 +9,8 @@
     <artifactId>service</artifactId>
 
     <properties>
-        <appengine.app.version>2</appengine.app.version>
-        <appengine.target.version>1.9.6</appengine.target.version>
+        <appengine.app.version>3</appengine.app.version>
+        <appengine.target.version>1.9.12</appengine.target.version>
 
         <jdk.version>1.7</jdk.version>
         <spring.version>3.1.4.RELEASE</spring.version>

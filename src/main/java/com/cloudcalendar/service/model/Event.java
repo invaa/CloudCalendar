@@ -1,9 +1,9 @@
 package com.cloudcalendar.service.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.google.appengine.datanucleus.annotations.Unowned;
+import org.datanucleus.api.jpa.annotations.Extension;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -18,13 +18,32 @@ public class Event implements Serializable {
 
     private Date end;
 
+    public Event(Date start, Date end, String title, String description) {
+        this.description = description;
+        this.start = start;
+        this.end = end;
+        this.title = title;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
 
-    public Event() {
+    @Unowned
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Attender> attenders = new HashSet<Attender>();
+
+    public Set<Attender> getAttenders() {
+        return attenders;
+    }
+
+    public void setAttenders(Set<Attender> attenders) {
+        this.attenders = attenders;
+    }
+
+    protected Event() {
     }
 
     public String getDescription() {

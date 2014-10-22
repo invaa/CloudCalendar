@@ -1,8 +1,10 @@
 package com.cloudcalendar.service.controller;
 
+import com.cloudcalendar.service.model.Attender;
 import com.cloudcalendar.service.model.Event;
 import com.cloudcalendar.service.repository.DataRepository;
 import com.cloudcalendar.service.util.DateHelper;
+import com.google.appengine.repackaged.com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -45,12 +49,16 @@ public class CalendarController {
     ) {
         String result = "{\"result\":true}";
 
-        Event event = new Event();
+        Event event = new Event(
+            DateHelper.getDateFromString(start, "yyyy-MM-dd' 'HH:mm:ss")
+            ,DateHelper.getDateFromString(end, "yyyy-MM-dd' 'HH:mm:ss")
+            ,title
+            ,description);
 
-        event.setStart(DateHelper.getDateFromString(start, "yyyy-MM-dd' 'HH:mm:ss"));
-        event.setEnd(DateHelper.getDateFromString(end, "yyyy-MM-dd' 'HH:mm:ss"));
-        event.setTitle(title);
-        event.setDescription(description);
+        event.setAttenders(Sets.newHashSet(
+                new Attender("alex@zamkovyi.name"),
+                new Attender("alex.theballer@gmail.com")
+        ));
 
         dataStore.save(event);
 

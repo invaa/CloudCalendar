@@ -169,7 +169,7 @@
         right: 10px;
     }
 
-    #calendar {
+    #calendar, .container {
         max-width: 900px;
         margin: 40px auto;
         padding: 0 10px;

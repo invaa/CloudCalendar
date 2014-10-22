@@ -8,9 +8,11 @@
     <persistence-unit name="jpa.unit">
         <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
         <class>com.cloudcalendar.service.model.Event</class>
+        <class>com.cloudcalendar.service.model.Attender</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="datanucleus.ConnectionURL" value="appengine" />
+            <property name="datanucleus.appengine.datastoreEnableXGTransactions" value="true"/>
             <property name="datanucleus.appengine.ignorableMetaDataBehavior"
                       value="NONE" />
         </properties>
