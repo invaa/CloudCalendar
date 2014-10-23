@@ -33,6 +33,23 @@
 
         });
 
+        $("#add-attender").click(function() {
+            attender = $("#current-attender").val();
+
+            //TODO: validate email, remove duplicates
+
+            if (attender != "") {
+                $('#attenders').append('<option value="'
+                        + attender
+                        + '">'
+                        + attender
+                        + '</option>');
+            }
+        });
+
+        $("#remove-attender").click(function() {
+            $("#attenders :selected").remove();
+        });
     });
 
 </script>
@@ -40,6 +57,8 @@
     $(function () {
         var dialog, form,
 
+                attenders = $("#attenders"),
+                swatch = $("#swatch"),
                 title = $("#title"),
                 description = $("#description"),
                 start = $("#start"),
@@ -93,7 +112,9 @@
                             start: start.val(),
                             end: end.val(),
                             description: description.val(),
-                            title: title.val()
+                            title: title.val(),
+                            attenders: $("select#attenders option").map(function() {return $(this).val();}).get(),
+                            color: swatch.css("background-color")
                         },
                         function (data) {
 
@@ -115,8 +136,8 @@
 
         dialog = $("#dialog-form").dialog({
             autoOpen: false,
-            height: 300,
-            width: 350,
+            height: 600,
+            width: 800,
             modal: true,
             buttons: {
                 "Create new event": addEvent,
@@ -132,13 +153,14 @@
 
         form = dialog.find("form").on("submit", function (event) {
             event.preventDefault();
-            addEvent();
         });
 
         $("#create-event").button().on("click", function () {
             dialog.dialog("open");
         });
+
     });
+
 </script>
 
 <style>
@@ -217,6 +239,64 @@
         padding: 0.3em;
     }
 </style>
+
+<!-- Color picker -->
+<style>
+    #red, #green, #blue {
+        float: left;
+        clear: left;
+        width: 300px;
+        margin: 15px;
+    }
+    #swatch {
+        width: 120px;
+        height: 100px;
+        margin-top: 18px;
+        margin-left: 350px;
+        background-image: none;
+    }
+    #red .ui-slider-range { background: #ef2929; }
+    #red .ui-slider-handle { border-color: #ef2929; }
+    #green .ui-slider-range { background: #8ae234; }
+    #green .ui-slider-handle { border-color: #8ae234; }
+    #blue .ui-slider-range { background: #729fcf; }
+    #blue .ui-slider-handle { border-color: #729fcf; }
+</style>
+<script>
+    function hexFromRGB(r, g, b) {
+        var hex = [
+            r.toString( 16 ),
+            g.toString( 16 ),
+            b.toString( 16 )
+        ];
+        $.each( hex, function( nr, val ) {
+            if ( val.length === 1 ) {
+                hex[ nr ] = "0" + val;
+            }
+        });
+        return hex.join( "" ).toUpperCase();
+    }
+    function refreshSwatch() {
+        var red = $( "#red" ).slider( "value" ),
+                green = $( "#green" ).slider( "value" ),
+                blue = $( "#blue" ).slider( "value" ),
+                hex = hexFromRGB( red, green, blue );
+        $( "#swatch" ).css( "background-color", "#" + hex );
+    }
+    $(function() {
+        $( "#red, #green, #blue" ).slider({
+            orientation: "horizontal",
+            range: "min",
+            max: 255,
+            value: 127,
+            slide: refreshSwatch,
+            change: refreshSwatch
+        });
+        $( "#red" ).slider( "value", 255 );
+        $( "#green" ).slider( "value", 140 );
+        $( "#blue" ).slider( "value", 60 );
+    });
+</script>
 </head>
 <body>
 
@@ -248,8 +328,25 @@
             <label for="end">End</label>
             <input type="text" name="end" id="end" value="" class="text ui-widget-content ui-corner-all">
 
+            <div id="red"></div>
+            <div id="green"></div>
+            <div id="blue"></div>
+
+            <div id="swatch" class="ui-widget-content ui-corner-all"></div>
+
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
+
+        <label for="current-attender">Attender to be added:</label>
+        <input type="text" name="current-attender" id="current-attender" value="" class="text ui-widget-content ui-corner-all">
+        <div>
+            <select size="3" id="attenders" name="attenders">
+
+            </select>
+        </div>
+        <button id="add-attender">Add</button>
+        <button id="remove-attender">Remove</button>
+
     </form>
 </div>
 

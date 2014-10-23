@@ -1,8 +1,7 @@
 package com.cloudcalendar.service.model;
 
-import org.datanucleus.api.jpa.annotations.Extension;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity

@@ -4,7 +4,6 @@ import com.cloudcalendar.service.model.Attender;
 import com.cloudcalendar.service.model.Event;
 import com.cloudcalendar.service.repository.DataRepository;
 import com.cloudcalendar.service.util.DateHelper;
-import com.google.appengine.repackaged.com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class CalendarController {
@@ -45,7 +44,9 @@ public class CalendarController {
     String addEvent(@RequestParam String start,
                     @RequestParam String end,
                     @RequestParam String description,
-                    @RequestParam String title
+                    @RequestParam String title,
+                    @RequestParam(value="attenders[]") String[] attenders,
+                    @RequestParam String color
     ) {
         String result = "{\"result\":true}";
 
@@ -55,10 +56,13 @@ public class CalendarController {
             ,title
             ,description);
 
-        event.setAttenders(Sets.newHashSet(
-                new Attender("alex@zamkovyi.name"),
-                new Attender("alex.theballer@gmail.com")
-        ));
+        event.setColor(color);
+
+        Set<Attender> attendersSet = new HashSet<Attender>();
+        for (String email: attenders) {
+            attendersSet.add(new Attender(email));
+        }
+        event.setAttenders(attendersSet);
 
         dataStore.save(event);
 

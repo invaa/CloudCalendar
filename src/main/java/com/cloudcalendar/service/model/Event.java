@@ -1,11 +1,12 @@
 package com.cloudcalendar.service.model;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
-import org.datanucleus.api.jpa.annotations.Extension;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Event implements Serializable {
@@ -18,6 +19,17 @@ public class Event implements Serializable {
 
     private Date end;
 
+    private String color;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+
+    @Unowned
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Attender> attenders = new HashSet<Attender>();
+
     public Event(Date start, Date end, String title, String description) {
         this.description = description;
         this.start = start;
@@ -25,15 +37,16 @@ public class Event implements Serializable {
         this.title = title;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Event() {
+    }
 
-    private String title;
+    public String getColor() {
+        return color;
+    }
 
-    @Unowned
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Attender> attenders = new HashSet<Attender>();
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public Set<Attender> getAttenders() {
         return attenders;
@@ -43,11 +56,12 @@ public class Event implements Serializable {
         this.attenders = attenders;
     }
 
-    protected Event() {
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getEnd() {
@@ -56,10 +70,6 @@ public class Event implements Serializable {
 
     public void setEnd(Date end) {
         this.end = end;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getTitle() {
