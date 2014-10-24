@@ -1,7 +1,5 @@
 package com.cloudcalendar.service.model;
 
-//import com.google.appengine.datanucleus.annotations.Unowned;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -28,7 +26,6 @@ public class Event implements Serializable {
     private Long id;
     private String title;
 
-//    @Unowned
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Attender> attenders = new HashSet<Attender>();
 
