@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-     <dependencies>
+    <dependencies>
         <!-- Compile/runtime dependencies -->
         <dependency>
             <groupId>com.google.appengine</groupId>
@@ -62,47 +62,31 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- JPA -->
+        <!-- JPA Cloud SQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+            <version>2.4.2</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring.data.version}</version>
         </dependency>
+
+        <!-- Jackson -->
         <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine.orm</groupId>
-            <artifactId>datanucleus-appengine</artifactId>
-            <version>${datanucleus-appengine.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-            <version>1.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>${datanucleus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-api-jpa</artifactId>
-            <version>${datanucleus.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.3.2</version>
         </dependency>
 
-         <!-- Jackson -->
-         <dependency>
-             <groupId>com.fasterxml.jackson.core</groupId>
-             <artifactId>jackson-databind</artifactId>
-             <version>2.3.2</version>
-         </dependency>
-
-         <!-- Logging -->
+        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -113,32 +97,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.datanucleus</groupId>
-                <artifactId>datanucleus-maven-plugin</artifactId>
-                <version>4.0.0-release</version>
-                <configuration>
-                    <api>JPA</api>
-                    <persistenceUnitName>jpa.unit</persistenceUnitName>
-                    <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
-                    <verbose>true</verbose>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.datanucleus</groupId>
-                        <artifactId>datanucleus-core</artifactId>
-                        <version>${datanucleus.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

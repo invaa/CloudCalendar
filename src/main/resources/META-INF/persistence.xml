@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/persistence"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
     <persistence-unit name="jpa.unit">
-        <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
+        <!--<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>-->
+        <!--<provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>-->
+        <!--<provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>-->
         <class>com.cloudcalendar.service.model.Event</class>
         <class>com.cloudcalendar.service.model.Attender</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="datanucleus.ConnectionURL" value="appengine" />
-            <property name="datanucleus.appengine.datastoreEnableXGTransactions" value="true"/>
-            <property name="datanucleus.appengine.ignorableMetaDataBehavior"
-                      value="NONE" />
+            <!-- <property name="datanucleus.ConnectionURL" value="appengine" /> -->
+            <!-- <property name="datanucleus.appengine.datastoreEnableXGTransactions" value="true"/> -->
+            <!-- <property name="datanucleus.appengine.ignorableMetaDataBehavior"
+                      value="NONE" /> -->
+
+            <!-- Dev -->
+            <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.GoogleDriver" />-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/demo?user=root" />-->
+
+            <!--&lt;!&ndash; Production &ndash;&gt;-->
+            <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:google:mysql://your-instance-name/demo?user=root" />-->
+
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="eclipselink.ddl-generation" value="create-tables" />
+
         </properties>
     </persistence-unit>
 </persistence>

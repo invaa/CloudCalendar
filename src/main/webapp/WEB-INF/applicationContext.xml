@@ -1,6 +1,5 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:repository="http://www.springframework.org/schema/data/repository"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
@@ -24,12 +23,43 @@
         <constructor-arg ref="entityManagerFactory"/>
     </bean>
 
-    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-            id="entityManagerFactory">
-        <property name="persistenceUnitName" value="jpa.unit"/>
-        <property name="packagesToScan" value="com.cloudcalendar.service.model"/>
-        <property name="loadTimeWeaver">
-            <bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
-        </property>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <!-- Dev -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/demo" />
+
+        <!-- Production -->
+        <!--<property name="driverClassName" value="com.mysql.jdbc.GoogleDriver" />-->
+        <!--<property name="url" value="jdbc:google:mysql://your-instance-name/demo?user=root" />-->
+
+        <property name="username" value="root" />
+        <property name="password" value="" />
     </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+       <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="jpa.unit" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+                <property name="showSql" value="true"/>
+                <property name="generateDdl" value="true"/>
+                <property name="databasePlatform" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
+            </bean>
+        </property>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+        </property>
+        <property name="jpaPropertyMap">
+            <props>
+                <prop key="eclipselink.weaving">false</prop>
+            </props>
+        </property>
+        <property name="loadTimeWeaver">
+            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver">
+            </bean>
+        </property>
+
+    </bean>
+
 </beans>
