@@ -55,10 +55,6 @@
                 <prop key="eclipselink.weaving">false</prop>
             </props>
         </property>
-        <property name="loadTimeWeaver">
-            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver">
-            </bean>
-        </property>
 
     </bean>
 
